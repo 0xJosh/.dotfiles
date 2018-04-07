@@ -1,4 +1,20 @@
 #!/usr/bin/env bash
+#_____________________________________________________________________________
+#
+# dwm-status-bar
+# **************
+#
+# BATTERY()
+# Dispays the battery percentage and battery status (i.e is device charging).
+#
+# DATE()
+# Displays current day, date and time.
+#
+# VPN()
+# Checks if VPN is present by checking if 'tun' is present in /sys/class/net/.
+# For added functionality i have included a quiet ping to see if we can dial out.
+# ____________________________________________________________________________
+
 
 BATTERY() {
   if [[ $(cat /sys/class/power_supply/AC/online) -eq "1" ]]; then
