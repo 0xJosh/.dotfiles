@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+LOG="/usr/local/src/dwm/logs/dwm.log"
+
+$HOME/.dotfiles/dwm/dwm-status-bar
+
+while true; do
+  dwm 2> $LOG
+done
+

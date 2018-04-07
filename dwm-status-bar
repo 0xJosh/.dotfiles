@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+BATTERY() {
+  if [[ $(cat /sys/class/power_supply/AC/online) -eq "1" ]]; then
+    echo -e "\ue23a $(cat /sys/class/power_supply/BAT0/capacity)%"
+  
+  elif [[ $(cat /sys/class/power_supply/AC/online) -eq "0" ]] && \
+       [[ $(cat /sys/class/power_supply/BAT0/capacity) -gt "50" ]]; then 
+    echo -e "\ue238 $(cat /sys/class/power_supply/BAT0/capacity)%"
+
+  elif [[ $(cat /sys/class/power_supply/AC/online) -eq "0" ]] && \
+       [[ $(cat /sys/class/power_supply/BAT0/capacity) -lt "50" ]]; then 
+    echo -e "\ue212 $(cat /sys/class/power_supply/BAT0/capacity)%"
+  fi
+}
+
+DATE() {
+  echo -e "$(date +"%A, %d-%m-%Y, %H:%M") \ue018"
+}
+
+VPN() {
+  ls /sys/class/net/ | grep -q 'tun'
+  if [ $? -eq '0' ]; then 
+    ping -qc 1 8.8.8.8 &> /dev/null
+    if [[ $? -eq '0' ]]; then
+      echo -e "\ue048 [\x04Secure Connection\x01]"
+    fi
+  else
+    echo -e "\ue048 [\x03Warning: Unsecure Connection Initiated\x01]"
+  fi
+}
+
+feh --bg-scale /usr/local/src/dwm/wallpapers/QqvfBUp.jpg 
+
+while true; do
+  xsetroot -name " $(DATE) | $(BATTERY) | $(VPN)"
+  sleep 1
+done & 
+
