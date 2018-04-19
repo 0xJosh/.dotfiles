@@ -12,7 +12,6 @@
 #
 # VPN()
 # Checks if VPN is present by checking if 'tun' is present in /sys/class/net/.
-# For added functionality i have included a quiet ping to see if we can dial out.
 # ____________________________________________________________________________
 
 
